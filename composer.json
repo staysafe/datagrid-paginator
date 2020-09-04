@@ -1,0 +1,56 @@
+{
+    "name": "staysafe/datagrid-paginator",
+    "description": "DataGrid paginator",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Simon Griffiths",
+            "email": "simon.griffiths@staysafeapp.com"
+        },
+        {
+            "name": "Antonios Pavlakis",
+            "email": "antonios.pavlakis@staysafeapp.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "StaySafe\\Paginator\\DataGrid\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "StaySafe\\Paginator\\DataGrid\\Test\\": "tests/phpunit/"
+        }
+    },
+    "require": {
+        "php": "^7.4",
+        "particle/filter": "^1.5",
+        "webmozart/assert": "^1.4",
+        "doctrine/doctrine-bundle": "^1"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2",
+        "phpstan/phpstan": "^0.12",
+        "phpunit/phpunit": "^9"
+    },
+    "config": {
+        "sort-packages": true,
+        "preferred-install": {
+            "*": "dist"
+        }
+    },
+    "scripts": {
+        "test": "phpunit --colors=always",
+        "test-coverage": "phpunit --colors=always --coverage-html=tests/coverage/ ",
+        "test-coverage-ci": "phpunit --verbose --coverage-clover build/logs/clover.xml",
+        "check-styles": "php-cs-fixer fix --dry-run",
+        "fix-styles": "php-cs-fixer fix",
+        "static-analysis": "phpstan analyse src --level 7",
+        "test-ci": [
+            "@check-styles",
+            "@static-analysis",
+            "@test-coverage-ci"
+        ]
+    }
+}
