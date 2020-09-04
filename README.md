@@ -3,7 +3,6 @@
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
 [![Build Status][ico-travis]][link-travis]
-[![Coverage Status][ico-coveralls]][link-coveralls]
 [![Total Downloads][ico-downloads]][link-downloads]
 
 
@@ -13,12 +12,6 @@ Via Composer
 
 ``` bash
 $ composer require staysafe/datagrid-paginator
-```
-
-## Testing
-
-``` bash
-$ composer test
 ```
 
 ## Contributing
