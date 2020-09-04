@@ -27,6 +27,11 @@ final class Filter
         $this->filterBindsMaps = $filterBindsMaps;
     }
 
+    /**
+     * @param string $name
+     * @param mixed  $value
+     * @param int    $type
+     */
     public function addBindMap(string $name, $value, int $type = ParameterType::STRING): void
     {
         Assert::keyExists(\array_flip(self::PARAMETER_TYPES), $type);

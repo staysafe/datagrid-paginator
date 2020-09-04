@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Helper\Pagination;
+namespace StaySafe\Paginator\DataGrid;
 
-use App\Repository\Pagination\PaginatorConfigInterface;
-use App\Repository\Pagination\PaginationQueryManagerInterface;
+use StaySafe\Paginator\DataGrid\Repository\PaginatorConfigInterface;
+use StaySafe\Paginator\DataGrid\Repository\PaginationQueryManagerInterface;
 
 final class Paginator
 {
@@ -18,6 +18,13 @@ final class Paginator
         $this->gridPaginator = $gridPaginator;
     }
 
+    /**
+     * @param PaginatorConfigInterface        $paginatorConfig
+     * @param PaginationQueryManagerInterface $queryManager
+     * @param array                           $gridMetaData
+     *
+     * @return array<string, mixed>
+     */
     public function getPaginatedData(
         PaginatorConfigInterface $paginatorConfig,
         PaginationQueryManagerInterface $queryManager,
