@@ -25,9 +25,11 @@
     },
     "require": {
         "php": "^7.4",
+        "ext-pdo": "*",
         "particle/filter": "^1.5",
         "webmozart/assert": "^1.4",
-        "doctrine/doctrine-bundle": "^1"
+        "doctrine/doctrine-bundle": "^1",
+        "doctrine/orm": "^2"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2",
