@@ -1,6 +1,5 @@
 /bin/
 /vendor/
-/.idea
 tests/coverage/
 
 composer.lock

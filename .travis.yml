@@ -1,4 +1,4 @@
-dist: bionic
+dist: focal
 language: php
 php:
   - 7.4
@@ -9,3 +9,6 @@ install:
 script:
   - composer test
   - composer static-analysis
+
+before_install:
+  - echo "memory_limit=2G" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
