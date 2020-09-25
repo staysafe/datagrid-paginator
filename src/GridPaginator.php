@@ -96,6 +96,27 @@ class GridPaginator
         $this->filter->value('search')->defaults([]);
         $this->filter->value('sort')->defaults([]);
 
+        $this->decodeSearchQuery($gridMetaData);
+
         return $this->filter->filter($gridMetaData);
+    }
+
+    private function decodeSearchQuery(array &$gridMetaData): void
+    {
+        if (isset($gridMetaData['search']['all']) && \is_string($gridMetaData['search']['all'])) {
+            $search = \trim($gridMetaData['search']['all']);
+            if ('' === $search) {
+                return;
+            }
+            if ('%' === $search[0]) {
+                $search = substr($search, 1);
+            }
+
+            if ('%' === \substr($search, -1)) {
+                $search = substr($search, 0, -1);
+            }
+
+            $gridMetaData['search']['all'] = '%'.\urldecode($search).'%';
+        }
     }
 }

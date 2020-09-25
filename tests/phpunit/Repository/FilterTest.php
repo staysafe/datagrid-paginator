@@ -54,7 +54,7 @@ final class FilterTest extends TestCase
     /**
      * @test
      */
-    public function can_add_multiple_mind_maps(): void
+    public function can_add_multiple_bind_maps(): void
     {
         $filter = new Filter('', []);
         $bindings = [
