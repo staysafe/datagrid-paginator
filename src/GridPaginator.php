@@ -80,25 +80,23 @@ class GridPaginator
     /**
      * Sanitize the grids meta data and return a working construct.
      *
-     * @param mixed $gridMetaData
+     * @param array $gridMetaData
      *
      * @return array
      */
-    public function sanitizeGridMetaData($gridMetaData): array
+    public function sanitizeGridMetaData(array $gridMetaData): array
     {
-        if (!is_array($gridMetaData)) {
-            $gridMetaData = [];
-        }
-
         $this->filter->all()->trim();
         $this->filter->value('page')->int()->defaults(1);
         $this->filter->value('limit')->int()->defaults(self::MAX_PAGINATION_RESULTS);
         $this->filter->value('search')->defaults([]);
         $this->filter->value('sort')->defaults([]);
 
+        $gridMetaData = $this->filter->filter($gridMetaData);
+
         $this->decodeSearchQuery($gridMetaData);
 
-        return $this->filter->filter($gridMetaData);
+        return $gridMetaData;
     }
 
     private function decodeSearchQuery(array &$gridMetaData): void
