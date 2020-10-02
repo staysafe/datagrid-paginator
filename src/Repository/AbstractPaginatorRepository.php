@@ -42,15 +42,16 @@ abstract class AbstractPaginatorRepository extends ServiceEntityRepository
         $statement->execute();
         $countResult = $statement->fetch();
 
-        return (int) $countResult['total'] ?: 0;
+        return ($statement->rowCount() > 0) ? (int) $countResult['total'] : 0;
     }
 
     /**
-     * @param string $itemsSQL
-     * @param Filter $filters
-     * @param array  $sort
-     * @param int    $page
-     * @param int    $limit
+     * @param string      $itemsSQL
+     * @param Filter      $filters
+     * @param array       $sort
+     * @param int         $page
+     * @param int         $limit
+     * @param string|null $groupBy
      *
      * @return array
      *
@@ -61,10 +62,15 @@ abstract class AbstractPaginatorRepository extends ServiceEntityRepository
         Filter $filters,
         array $sort,
         int $page,
-        int $limit
+        int $limit,
+        ?string $groupBy = null
     ): array {
         // filters
         $itemsSQL .= $filters->getFilterString();
+
+        if (null !== $groupBy) {
+            $itemsSQL .= $groupBy;
+        }
 
         // Sort
         $itemsSQL .= $this->nativeSqlHelper->getSortString($sort);
