@@ -21,17 +21,43 @@ abstract class AbstractPaginatorRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param string $countSQL
-     * @param Filter $filters
+     * @param string      $countSQL
+     * @param Filter      $filters
+     * @param string|null $groupBy
+     * @param string|null $having
+     * @param bool        $useCountWrapper
      *
      * @return int
      *
      * @throws \Doctrine\DBAL\DBALException
      */
-    protected function getPaginationCount(string $countSQL, Filter $filters): int
-    {
+    protected function getPaginationCount(
+        string $countSQL,
+        Filter $filters,
+        ?string $groupBy = null,
+        ?string $having = null,
+        bool $useCountWrapper = false
+    ): int {
         // filters
         $countSQL .= $filters->getFilterString();
+
+        if (null !== $groupBy) {
+            $countSQL .= $groupBy;
+        }
+
+        if (null !== $having) {
+            $countSQL .= $having;
+        }
+
+        if ($useCountWrapper) {
+            $countSQL = \sprintf('
+SELECT
+	COUNT(*) AS total
+FROM (
+    %s
+) AS total
+', $countSQL);
+        }
 
         $statement = $this->getConnection()->prepare($countSQL);
 
@@ -52,6 +78,7 @@ abstract class AbstractPaginatorRepository extends ServiceEntityRepository
      * @param int         $page
      * @param int         $limit
      * @param string|null $groupBy
+     * @param string|null $having
      *
      * @return array
      *
@@ -63,13 +90,18 @@ abstract class AbstractPaginatorRepository extends ServiceEntityRepository
         array $sort,
         int $page,
         int $limit,
-        ?string $groupBy = null
+        ?string $groupBy = null,
+        ?string $having = null
     ): array {
         // filters
         $itemsSQL .= $filters->getFilterString();
 
         if (null !== $groupBy) {
             $itemsSQL .= $groupBy;
+        }
+
+        if (null !== $having) {
+            $itemsSQL .= $having;
         }
 
         // Sort
