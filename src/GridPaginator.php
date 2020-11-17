@@ -61,7 +61,7 @@ class GridPaginator
      *
      * @return array
      */
-    public function getSortArrayFroGridMetaData(array $gridMetaData, array $defaultSortFields): array
+    public function getSortArrayFromGridMetaData(array $gridMetaData, array $defaultSortFields): array
     {
         $sortDirection = 'asc';
         $sort = $defaultSortFields;
@@ -72,7 +72,7 @@ class GridPaginator
         }
 
         return [
-            'fields' => $sort,
+            'fields' => $sort['fields'] ?? $sort,
             'direction' => $sortDirection,
         ];
     }

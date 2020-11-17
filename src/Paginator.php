@@ -34,7 +34,7 @@ final class Paginator
             $gridMetaData
         );
 
-        $sort = $this->gridPaginator->getSortArrayFroGridMetaData($gridMetaData, $paginatorConfig->getDefaultSort());
+        $sort = $this->gridPaginator->getSortArrayFromGridMetaData($gridMetaData, $paginatorConfig->getDefaultSort());
 
         $data = $queryManager->getPaginatedData(
             $meta['limit'] > 0 ? (int) $meta['limit'] : self::MAX_PAGINATION_RESULTS,
